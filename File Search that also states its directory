@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Prompt the user for the file to search for
+read -p "Enter the name of the file to search for: " file_name
+
+# Search for the file in the current directory and all subdirectories
+result=$(find . -name $file_name)
+
+# Check if the file was found
+if [ -z "$result" ]; then
+  echo "File not found."
+else
+  # Extract the directory path from the result
+  directory=$(dirname "$result")
+  echo "File found: $result"
+  echo "Directory: $directory"
+fi
