@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Start an infinite loop
+while true
+do
+
+# Prompt the user for the filename
+read -p "Enter the filename that you wish to decompress: " filename
+
+# Check if the file exist
+if [ -f "$filename" ]
+then
+
+	# Decompress the tar archive using unzip
+	gunzip $filename
+
+	# Print a success message
+	echo "File decompressed successfully"
+else
+# Print an error message is the file doesnt exist
+ echo "Error: File not found"
+fi
+
+# Ask user if they want to compress another file
+ read -p "Press enter to continue, or type 'exit' to quit:" input
+
+# Check if user wants to continue or quit
+if [ "$input" = "exit" ]
+ then
+  # Exit the loop 
+  break
+ fi
+done
