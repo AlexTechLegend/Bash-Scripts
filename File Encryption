@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Prompt the user for the name of the file to encrypt
+read -p "Enter the name of the file to encrypt: " file
+
+# Prompt the user for a password to use for the encryption
+read -sp "Enter a password for the encryption: " password
+echo
+
+# Encrypt the file using openssl and the password
+openssl enc -aes-256-cbc -salt -in $file -out "${file}.encrypted" -k $password
+
+# Display a message indicating that the encryption is complete
+echo "Encryption complete."
+
+# Prompt the user to save the changes
+read -p "Do you want to save the changes? [y/n] " save_changes
+
+# If the user does not want to save the changes, decrypt the file
+if [ "$save_changes" == "n" ]; then
+  openssl enc -aes-256-cbc -d -in "${file}.encrypted" -out $file -k $password
+  echo "Changes discarded."
+else
+  # Otherwise, remove the original unencrypted file
+  rm $file
+  echo "Changes saved."
+fi
