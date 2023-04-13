@@ -1,0 +1,55 @@
+#!/bin/bash
+
+while true
+do
+
+# CHMOD options
+echo "Select the option below:"
+echo "1. Add Permissions (+)"
+echo "2. Remove Permissions (-)"
+read -p "Select one of the following (+/-): " S
+
+# List all of the chmod options
+echo "Please review the following selection:"
+echo "0 No Permission"
+echo "1 Execute"
+echo "2 Write"
+echo "3 Write + Execute"
+echo "4 Read"
+echo "5 Read + Execute"
+echo "6 Read + Write"
+echo "7 Read + Write + Execute"
+
+# Start selection for each group
+read -p "Select the permisson level for groups: " G
+read -p "Select the permission level for users: " U
+read -p "Select the permission level for other: " O
+read -p "Please enter the file name you are wanting to edit: " File
+
+# Correct confirmation
+read -p "Is $File the correct file? (Y/N): " verify1
+
+# if then to catch if they need to try another file
+if [ "$verify1" = "Y" ]; then
+  sudo chmod $S$G$U$O ./$File
+ else
+  read -p "Please enter the file name you are wanting to edit: " verify2
+  sudo chmod $S$G$U$O ./$verify2
+fi
+
+# Command run statement
+sleep 1
+echo "CHMOD WAS SUCCESSFUL!"1
+sleep 1
+
+# Promt for another file
+read -p "Are you wanting to edit another file? (Y/N): " input
+
+# Restart or exit script
+if [ "$input" = "N" ]; then
+  exit
+ else
+  continue
+fi
+
+done
